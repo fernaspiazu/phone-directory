@@ -10,7 +10,7 @@
 
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>com.xpeppers.phonedirectory.PhoneDirectoryAppContext</param-value>
+    <param-value>com.xpeppers.phonedirectory.config.PhoneDirectoryConfig</param-value>
   </context-param>
 
   <listener>
@@ -30,7 +30,7 @@
     </init-param>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>com.xpeppers.phonedirectory.PhoneDirectoryAppContext</param-value>
+      <param-value>com.xpeppers.phonedirectory.config.PhoneDirectoryConfig</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>

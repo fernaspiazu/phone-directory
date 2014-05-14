@@ -1,8 +1,9 @@
-package com.xpeppers.phonedirectory;
+package com.xpeppers.phonedirectory.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.datetime.DateTimeFormatAnnotationFormatterFactory;
@@ -18,7 +19,8 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 @Configuration
 @EnableWebMvc
-public class WebMVCAppContext extends WebMvcConfigurerAdapter {
+@EnableSpringDataWebSupport
+public class WebAppConfig extends WebMvcConfigurerAdapter {
 
   public static final String LANGUAGE = "lang";
   public static final String GLOBAL_DATE_FORMAT = "dd-MM-yyyy";

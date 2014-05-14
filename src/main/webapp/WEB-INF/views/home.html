@@ -2,6 +2,72 @@
 <html lang="en-GB" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:substituteby="fragments/head::head ('Home')"></head>
 <body>
-<h1>Hello World</h1>
+
+<div class="container">
+  <div class="page-header">
+    <h1>Telephone Directory</h1>
+  </div>
+  <p class="lead">Insert a name or a telephone number.</p>
+  <p>Use <a href="../sticky-footer-navbar">the sticky footer with a fixed navbar</a> if need be, too.</p>
+
+  <table class="table table-bordered table-striped default-datatable">
+    <thead>
+      <tr>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Telephone number</th>
+        <th class="sorting_asc_disabled sorting_desc_disabled"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Datatable server side fill this body -->
+    </tbody>
+  </table>
+
+  <hr/>
+  <div class="control-group pull-right">
+    <div class="controls">
+      <button type="button" id="newEntry" class="btn btn-primary">New Entry</button>
+    </div>
+  </div>
+</div>
+
+<div id="footer">
+  <div class="footer-container">
+    <p class="text-muted text-center">XPeppers test</p>
+  </div>
+</div>
+<script type="text/javascript" th:inline="javascript">
+  /*<![CDATA[*/
+  $(document).ready(function () {
+    $(".default-datatable").dataTable({
+      "bProcessing" : true,
+      "bServerSide" : true,
+      "sAjaxSource" : /*[[${#httpServletRequest.getContextPath()+'/search'}]]*/ "/search",
+      "sServerMethod" : "GET",
+      "aaSorting": [],
+      "aoColumns": [
+        {"mData" : "firstName"},
+        {"mData" : "lastName"},
+        {"mData" : "phoneNumber"},
+        {"mData" : "id", bSortable : false, sWidth : "30px"}
+      ],
+      "fnRowCallback" : function(nRow, aData, iDisplayIndex) {
+        $(nRow).attr('id', aData['id']);
+        $(nRow).find('td').last().css({'text-align' : 'center'}).html('')
+          .append('<div class="glyphicon glyphicon-edit click-icon edit-user" title="Edit"></div>');
+      },
+      "iDisplayLength": 10,
+      "bLengthChange": true,
+      "sDom": "<'row'<'col-xs-6'l><'col-xs-6'f>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+      "sPaginationType": "bootstrap",
+      "bInfo": true
+    });
+
+    $(".default-datatable").parent().find("input[type='text']").addClass("form-control input-sm").css({"width": 360});
+    $(".default-datatable").parent().find("select").addClass("form-control input-sm");
+  });
+  /*]]>*/
+</script>
 </body>
 </html>
