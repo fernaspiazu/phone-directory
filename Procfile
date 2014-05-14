@@ -1,1 +1,1 @@
-web: mvn clean tomcat7:run-war -e
+web: mvn tomcat7:run-war -e
