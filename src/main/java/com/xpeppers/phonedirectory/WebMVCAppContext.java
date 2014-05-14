@@ -35,7 +35,7 @@ public class WebMVCAppContext extends WebMvcConfigurerAdapter {
 
   @Override
   public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-    configurer.enable("Phone Directory Servlet");
+    configurer.enable("default");
   }
 
   @Override
