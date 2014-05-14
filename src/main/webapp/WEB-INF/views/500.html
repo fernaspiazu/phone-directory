@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en-GB" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:substituteby="fragments/head::head ('Home')"></head>
+<body>
+
+<div class="container">
+  <div class="page-header">
+    <h1>500 Server Error</h1>
+  </div>
+  <p class="lead" th:text="Possible reason: ${message}">Possible reason: </p>
+
+  <div class="control-group pull-right">
+    <div class="controls">
+      <a id="newEntry" href="new-entry.html" th:href="@{/new-entry}" class="btn btn-primary">New Entry</a>
+    </div>
+  </div>
+</div>
+
+<div id="footer">
+  <div class="footer-container">
+    <p class="text-muted text-center">XPeppers test</p>
+  </div>
+</div>
+</body>
+</html>

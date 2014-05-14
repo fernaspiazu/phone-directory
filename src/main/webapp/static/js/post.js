@@ -19,17 +19,16 @@ $(document).ready(function() {
 		$.post(url, data, function(response) {
 			if (response.status == "FAIL") {
 				resetAllErrorMessages();
+        var $fieldErrors = $form.find('.error-block').html('<div class="alert alert-danger"></div>');
 				$.each(response.errorMessages, function(i, item) {
 					var errorMessage = item.errorMessage;
 					var $field = $('#'+item.fieldName);
-					var $fieldErrors = $('#fieldErrors').html('<div class="alert alert-danger"></div>');
-
 					$field.parent().addClass('has-error');
-					if (!$fieldErrors.find('.alert-danger').html()) {
-						$fieldErrors.find('.alert-danger').html(errorMessage);
-					} else {
-						$fieldErrors.find('.alert-danger').append(errorMessage);
-					}
+          if (!$fieldErrors.find('.alert-danger').html()) {
+            $fieldErrors.find('.alert-danger').html('<span>'+errorMessage+'</span>');
+          } else {
+            $fieldErrors.find('.alert-danger').append('<br/><span>'+errorMessage+'</span>');
+          }
 				});
 			} else {
 				$form.unbind('submit');

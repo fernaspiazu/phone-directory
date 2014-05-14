@@ -1,0 +1,1 @@
+create sequence phone_sequence increment by 1 minvalue 1 start 1;

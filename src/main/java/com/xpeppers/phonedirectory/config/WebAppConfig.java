@@ -2,7 +2,6 @@ package com.xpeppers.phonedirectory.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
@@ -88,20 +87,6 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     templateResolver.setCacheTTLMs(0L);
     // -------------------------------------
     return templateResolver;
-  }
-
-  @Bean
-  public ReloadableResourceBundleMessageSource messageSource() {
-    ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-    messageSource.setBasenames(basenames());
-    messageSource.setDefaultEncoding("UTF-8");
-    messageSource.setCacheSeconds(1);
-    messageSource.setFallbackToSystemLocale(false);
-    return messageSource;
-  }
-
-  private String[] basenames() {
-    return new String[] { "/WEB-INF/i18n/global" };
   }
 
   @Bean

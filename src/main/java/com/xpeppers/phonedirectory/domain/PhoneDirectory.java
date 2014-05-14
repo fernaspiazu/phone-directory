@@ -1,9 +1,6 @@
 package com.xpeppers.phonedirectory.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -12,6 +9,8 @@ public class PhoneDirectory implements Serializable {
   private static final long serialVersionUID = -4200866109752937653L;
 
   @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phone_sequence")
+  @SequenceGenerator(name = "phone_sequence", sequenceName = "phone_sequence", allocationSize = 1)
   @Column(name = "id")
   private Long id;
 

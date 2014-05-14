@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-GB" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:substituteby="fragments/head::head ('Home')"></head>
+<body>
+
+<div class="container">
+  <div class="page-header">
+    <h1>Telephone Directory</h1>
+  </div>
+  <p class="lead">Insert new Entry.</p>
+  <form id="newEntryForm" th:action="@{/save}" th:object="${entry}" action="#" method="post" role="form">
+    <fieldset class="col-sm-offset-1 col-sm-6">
+      <div id="fieldErrors" class="error-block"></div>
+      <input type="hidden" th:field="*{id}"/>
+      <div class="form-group">
+        <label for="firstName">First name *</label>
+        <input type="text" id="firstName" th:field="*{firstName}" class="form-control input-sm" placeholder="(Required)" autofocus=""/>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last name *</label>
+        <input type="text" id="lastName" th:field="*{lastName}" class="form-control input-sm" placeholder="(Required)"/>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Telephone number *</label>
+        <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control input-sm" placeholder="(Required) Format: +39 02 1234567"/>
+      </div>
+      <hr/>
+      <div class="control-group pull-right">
+        <a href="home.html" th:href="@{/home}" class="btn btn-default btn-sm">Back</a>
+        <button th:unless="${edit}" type="submit" class="btn btn-primary btn-sm" form="newEntryForm">Save Entry</button>
+        <button th:if="${edit}" id="editEntry" type="button" class="btn btn-primary btn-sm">Edit Entry</button>
+        <button th:if="${edit}" id="updateEntry" type="submit" class="btn btn-primary btn-sm" form="newEntryForm" style="display: none">Update Entry</button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<div id="footer">
+  <div class="footer-container">
+    <p class="text-muted text-center">XPeppers test</p>
+  </div>
+</div>
+<script th:src="@{/static/js/post.js}" src="../../static/js/post.js"></script>
+<script th:inline="javascript">
+  var targetForm = "#newEntryForm";
+  var asyncUrl = "/validate-entry";
+  var contextRoot = /*[[${#httpServletRequest.getContextPath()}]]*/ '/';
+
+  $(document).ready(function() {
+    var isEdit = /*[[${edit}]]*/ false;
+    if (isEdit) {
+      $('#newEntryForm fieldset input').attr('disabled', 'disabled');
+    } else {
+      $('#newEntryForm fieldset input').removeAttr('disabled');
+    }
+
+    $('#editEntry').click(function() {
+      $(this).hide();
+      $('#updateEntry').show();
+      $('#newEntryForm fieldset input').removeAttr('disabled');
+    });
+  });
+</script>
+</body>
+</html>

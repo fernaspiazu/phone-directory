@@ -8,7 +8,6 @@
     <h1>Telephone Directory</h1>
   </div>
   <p class="lead">Insert a name or a telephone number.</p>
-  <p>Use <a href="../sticky-footer-navbar">the sticky footer with a fixed navbar</a> if need be, too.</p>
 
   <table class="table table-bordered table-striped default-datatable">
     <thead>
@@ -27,7 +26,7 @@
   <hr/>
   <div class="control-group pull-right">
     <div class="controls">
-      <button type="button" id="newEntry" class="btn btn-primary">New Entry</button>
+      <a id="newEntry" href="new-entry.html" th:href="@{/new-entry}" class="btn btn-primary">New Entry</a>
     </div>
   </div>
 </div>
@@ -55,7 +54,7 @@
       "fnRowCallback" : function(nRow, aData, iDisplayIndex) {
         $(nRow).attr('id', aData['id']);
         $(nRow).find('td').last().css({'text-align' : 'center'}).html('')
-          .append('<div class="glyphicon glyphicon-edit click-icon edit-user" title="Edit"></div>');
+          .append('<div onclick="details(this);" class="glyphicon glyphicon-share click-icon edit-user" title="Details"></div>');
       },
       "iDisplayLength": 10,
       "bLengthChange": true,
@@ -67,6 +66,11 @@
     $(".default-datatable").parent().find("input[type='text']").addClass("form-control input-sm").css({"width": 360});
     $(".default-datatable").parent().find("select").addClass("form-control input-sm");
   });
+
+  function details(icon) {
+    var url = /*[[${#httpServletRequest.getContextPath()+'/details'}]]*/ "/details";
+    window.location = url + '?id=' + $(icon).closest('tr').attr('id');
+  }
   /*]]>*/
 </script>
 </body>
