@@ -1,1 +1,1 @@
-web: mvn tomcat7:run-war -e
+web: /app/tmp/cache/.maven/bin/mvn -B -Duser.home=/tmp/build_eeae4aa7-c9cb-4f49-b002-7fa43b9123dd -Dmaven.repo.local=/app/tmp/cache/.m2/repository -s /app/tmp/cache/.m2/settings.xml -DskipTests=true tomcat7:run-war -e
