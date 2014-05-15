@@ -19,20 +19,14 @@
 -->
 <!DOCTYPE html>
 <html lang="en-GB" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:substituteby="fragments/head::head ('Home')"></head>
+<head th:substituteby="fragments/head::head ('Page not found')"></head>
 <body>
 
 <div class="container">
   <div class="page-header">
-    <h1>500 Server Error</h1>
+    <h1>404 Page not found</h1>
   </div>
-  <p class="lead" th:text="Possible reason: ${message}">Possible reason: </p>
-
-  <div class="control-group pull-right">
-    <div class="controls">
-      <a id="newEntry" href="new-entry.html" th:href="@{/new-entry}" class="btn btn-primary">New Entry</a>
-    </div>
-  </div>
+  <p class="lead">The page you are requesting does not exist.</p>
 </div>
 
 <div id="footer">

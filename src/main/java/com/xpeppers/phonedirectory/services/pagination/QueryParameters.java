@@ -19,7 +19,7 @@
  */
 package com.xpeppers.phonedirectory.services.pagination;
 
-public abstract class DatatableParameters {
+public abstract class QueryParameters {
 
   public int getPage() {
     return getDisplayStart() / getDisplayLength();
@@ -42,8 +42,6 @@ public abstract class DatatableParameters {
   public abstract String getColumnName(int columnIndex);
 
   public abstract int getSortColumnIndex();
-
-  public abstract int getColumnsNumber();
 
   public abstract String getSortDirection();
 

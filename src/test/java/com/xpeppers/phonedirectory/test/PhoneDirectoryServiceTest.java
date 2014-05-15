@@ -19,6 +19,7 @@
  */
 package com.xpeppers.phonedirectory.test;
 
+import com.google.common.base.Optional;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xpeppers.phonedirectory.domain.PhoneDirectory;
@@ -51,10 +52,18 @@ public class PhoneDirectoryServiceTest {
   }
 
   @Test
-  public void shouldBeFindOneResult() {
+  public void verifyIfResultIsPresent() {
     Mockito.when(phoneRepository.findOne(25L)).thenReturn(entry());
-    PhoneDirectory result = phoneDirectoryService.findEntryById(25L);
-    assertThat(result).isEqualTo(entry());
+    Optional<PhoneDirectory> phoneDirectory = phoneDirectoryService.findEntryById(25L);
+    assertThat(phoneDirectory.isPresent()).isTrue();
+    assertThat(phoneDirectory.get()).isEqualTo(entry());
+  }
+
+  @Test
+  public void verifyIfResultIsAbsent() {
+    Mockito.when(phoneRepository.findOne(25L)).thenReturn(null);
+    Optional<PhoneDirectory> phoneDirectory = phoneDirectoryService.findEntryById(25L);
+    assertThat(phoneDirectory.isPresent()).isFalse();
   }
 
   private static PhoneDirectory entry() {

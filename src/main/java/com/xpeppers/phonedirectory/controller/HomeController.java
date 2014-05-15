@@ -19,8 +19,10 @@
  */
 package com.xpeppers.phonedirectory.controller;
 
+import com.google.common.base.Optional;
 import com.xpeppers.phonedirectory.domain.PhoneDirectory;
 import com.xpeppers.phonedirectory.services.PhoneDirectoryService;
+import com.xpeppers.phonedirectory.utils.HttpRequestDatatableParameters;
 import com.xpeppers.phonedirectory.utils.ValidationResponse;
 import com.xpeppers.phonedirectory.validator.PhoneDirectoryValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +51,7 @@ public class HomeController {
 
   @RequestMapping(value = "/search", method = RequestMethod.GET, produces = JSON_UTF_8)
   public @ResponseBody String search() {
-    return phoneDirectoryService.searchTelephones(getHttpServletRequest());
+    return phoneDirectoryService.searchTelephones(new HttpRequestDatatableParameters(getHttpServletRequest()));
   }
 
   @RequestMapping(value = "/new-entry", method = RequestMethod.GET)
@@ -61,9 +63,13 @@ public class HomeController {
 
   @RequestMapping(value = "/details", method = RequestMethod.GET)
   public String entryDetails(@RequestParam("id") Long id, Model model) {
-    model.addAttribute("edit", true);
-    model.addAttribute("entry", phoneDirectoryService.findEntryById(id));
-    return "new-entry";
+    Optional<PhoneDirectory> entry = phoneDirectoryService.findEntryById(id);
+    if (entry.isPresent()) {
+      model.addAttribute("edit", true);
+      model.addAttribute("entry", entry.get());
+      return "new-entry";
+    }
+    return "redirect:/404";
   }
 
   @RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -77,11 +83,9 @@ public class HomeController {
     return phoneDirectoryValidator.validate(phoneDirectory);
   }
 
-  @ExceptionHandler(Exception.class)
-  public String handleServerError(Exception ex) {
-    getHttpServletRequest().setAttribute("message", ex.getMessage());
-    ex.printStackTrace();
-    return "500";
+  @RequestMapping(value = "/404", method = RequestMethod.GET)
+  public String pageNotFound() {
+    return "404";
   }
 
   private static HttpServletRequest getHttpServletRequest() {

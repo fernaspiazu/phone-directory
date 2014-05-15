@@ -19,12 +19,12 @@
  */
 package com.xpeppers.phonedirectory.utils;
 
-import com.xpeppers.phonedirectory.services.pagination.DatatableParameters;
+import com.xpeppers.phonedirectory.services.pagination.QueryParameters;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class HttpRequestDatatableParameters extends DatatableParameters {
+public class HttpRequestDatatableParameters extends QueryParameters {
 
   private HttpServletRequest request;
 
@@ -55,11 +55,6 @@ public class HttpRequestDatatableParameters extends DatatableParameters {
   @Override
   public int getSortColumnIndex() {
     return getParameterAsPrimitiveInt("iSortCol_0");
-  }
-
-  @Override
-  public int getColumnsNumber() {
-    return getParameterAsPrimitiveInt("iColumns");
   }
 
   @Override
