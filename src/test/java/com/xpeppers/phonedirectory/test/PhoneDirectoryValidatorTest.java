@@ -45,7 +45,7 @@ public class PhoneDirectoryValidatorTest {
 
   @Test
   public void telephoneNumberFormatMustBeCorrect() {
-    ValidationResponse result = phoneDirectoryValidator.validate(entryWithPhoneNumber("+39 02 1234567"));
+    ValidationResponse result = phoneDirectoryValidator.validate(entryWithPhoneNumber("+39 02 123456"));
     assertThat(result.hasErrors()).isFalse();
   }
 
@@ -75,7 +75,7 @@ public class PhoneDirectoryValidatorTest {
 
   @Test
   public void telephoneNumberFormatMustNotBeCorrectWithLessThanSevenDigitsAtTheEnd() {
-    ValidationResponse result = phoneDirectoryValidator.validate(entryWithPhoneNumber("+39 02 123456"));
+    ValidationResponse result = phoneDirectoryValidator.validate(entryWithPhoneNumber("+39 02 12345"));
     assertThat(result.hasErrors()).isTrue();
   }
 
