@@ -49,7 +49,6 @@
         <configuration>
           <tomcatWebXml>${basedir}/src/main/webapp/WEB-INF/web.xml</tomcatWebXml>
           <path>/${context-root}</path>
-          <port>8082</port>
         </configuration>
       </plugin>
       <plugin>

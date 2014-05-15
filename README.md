@@ -21,7 +21,7 @@ But maybe it would be better to run it with this one:
 
 * `$ mvn clean tomcat7:run-war`
 
-The above command will clean, install, package and run the Web app inside a Tomcat Embedded ([See Tomcat Maven Plugin](http://tomcat.apache.org/maven-plugin.html))
+The above command will clean, install, package and run the Web app inside a Tomcat Embedded ([See Tomcat Maven Plugin](http://tomcat.apache.org/maven-plugin.html)). The application will listening on port 8080.
 
 License
 -------
