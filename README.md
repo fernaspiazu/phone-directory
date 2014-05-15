@@ -9,6 +9,7 @@ The entries are validated, that it's not possible to enter an empty first or las
 ## Requirements ##
 * JDK **1.6.x+**
 * [Apache Maven **3.x**](http://maven.apache.org/)
+* PostgreSQL Database up and running on your local machine (listening on port 5432). Credentials can be whatever you want, it's enough to modify the properties file [postgresql_local.properties](https://github.com/fumandito/phone-directory/blob/master/src/main/resources/postgresql_local.properties) and modify `postgresql.user`, `postgresql.password`, and eventually the property `postgresql.url` whether the database name is other one. 
 
 ## Compile and run it ##
 In order to compile and run this webapp in your local computer it's sufficient to run these Maven commands:
