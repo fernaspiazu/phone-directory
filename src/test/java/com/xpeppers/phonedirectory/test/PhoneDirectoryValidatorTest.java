@@ -73,6 +73,12 @@ public class PhoneDirectoryValidatorTest {
     assertThat(result.hasErrors()).isTrue();
   }
 
+  @Test
+  public void telephoneNumberFormatMustNotBeCorrectWithLessThanSevenDigitsAtTheEnd() {
+    ValidationResponse result = phoneDirectoryValidator.validate(entryWithPhoneNumber("+39 02 123456"));
+    assertThat(result.hasErrors()).isTrue();
+  }
+
   private static PhoneDirectory entryWithPhoneNumber(String phoneNumber) {
     PhoneDirectory phoneDirectory = new PhoneDirectory();
     phoneDirectory.setId(1000L);

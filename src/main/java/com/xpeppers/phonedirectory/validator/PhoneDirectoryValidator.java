@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 
 @Component
 public class PhoneDirectoryValidator {
-  private static final String REGEX = "^[+](\\d+)(\\s)(\\d+)(\\s)(\\d+)+$";
+  private static final String REGEX = "^[+](\\d+)(\\s)(\\d+)(\\s)(\\d{7,})+$";
 
   public ValidationResponse validate(PhoneDirectory model) {
     ValidationResponse validationResponse = new ValidationResponse();
