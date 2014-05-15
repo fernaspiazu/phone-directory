@@ -74,11 +74,12 @@ public class PhoneDirectoryServiceImpl implements PhoneDirectoryService {
 
   private BooleanExpression whereFirstNameOrPhoneNumberLikeCriteriaEntry(String searchCriteria) {
     QPhoneDirectory directory = QPhoneDirectory.phoneDirectory;
-    return directory.firstName.like(anywhere(searchCriteria)).or(directory.phoneNumber.like(anywhere(searchCriteria)));
+    return directory.firstName.toLowerCase().like(anywhere(searchCriteria))
+      .or(directory.phoneNumber.toLowerCase().like(anywhere(searchCriteria)));
   }
 
   private static String anywhere(String value) {
-    return "%" + value + "%";
+    return "%" + value.toLowerCase() + "%";
   }
 
   private Map<String, Object> datatableResponseAttributes(QueryParameters parameters, Page page) {
