@@ -25,8 +25,6 @@ import com.xpeppers.phonedirectory.utils.ErrorMessage;
 import com.xpeppers.phonedirectory.utils.ValidationResponse;
 import org.springframework.stereotype.Component;
 
-import java.util.regex.Pattern;
-
 @Component
 public class PhoneDirectoryValidator {
   private static final String REGEX = "^[+](\\d+)(\\s)(\\d+)(\\s)(\\d{6,})+$";
@@ -51,13 +49,10 @@ public class PhoneDirectoryValidator {
   }
 
   private static void validatePhoneNumberFormat(String phoneNumber, ValidationResponse validationResponse) {
-    if (!validationResponse.hasErrors()) {
-      Pattern pattern = Pattern.compile(REGEX);
-      if (!pattern.matcher(phoneNumber).matches()) {
-        validationResponse.setStatus(ValidationStatus.FAIL);
-        validationResponse.getErrorMessages().add(new ErrorMessage("phoneNumber", "Incorrect format for Phone number. " +
-          "Format must be: +39 02 1234567, but has been find: " + phoneNumber));
-      }
+    if (!validationResponse.hasErrors() && !phoneNumber.matches(REGEX)) {
+      validationResponse.setStatus(ValidationStatus.FAIL);
+      validationResponse.getErrorMessages().add(new ErrorMessage("phoneNumber", "Incorrect format for Phone number. " +
+        "Format must be: +39 02 1234567, but has been find: " + phoneNumber));
     }
   }
 
