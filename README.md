@@ -4,7 +4,7 @@ The application handles a set of entries, that contain a first name,
 last name, and a telephone number.
 The entries are validated, that it's not possible to enter an empty first or last name; and the phone number should be of the form: **+39 02 1234567**
 
-[See](http://phone-directory.herokuapp.com/) the Web Application up and running on [Heroku](https://www.heroku.com/).
+See the Web Application up and running on [Heroku](http://phone-directory.herokuapp.com/).
 
 ## Requirements ##
 * JDK **1.6.x+**
