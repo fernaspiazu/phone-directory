@@ -19,9 +19,6 @@
  */
 package com.xpeppers.phonedirectory.services;
 
-import com.google.common.base.Optional;
-import com.google.common.collect.Maps;
-import com.google.gson.Gson;
 import com.mysema.query.types.expr.BooleanExpression;
 import com.xpeppers.phonedirectory.domain.PhoneDirectory;
 import com.xpeppers.phonedirectory.domain.QPhoneDirectory;
@@ -35,61 +32,60 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class PhoneDirectoryServiceImpl implements PhoneDirectoryService {
 
-  @Autowired
-  private Gson gson;
+	@Autowired
+	private PhoneDirectoryRepository phoneRepository;
 
-  @Autowired
-  private PhoneDirectoryRepository phoneRepository;
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public PhoneDirectory saveEntry(PhoneDirectory entry) {
+		return phoneRepository.save(entry);
+	}
 
-  @Override
-  @Transactional(rollbackFor = Exception.class)
-  public PhoneDirectory saveEntry(PhoneDirectory entry) {
-    return phoneRepository.save(entry);
-  }
+	@Override
+	public Optional<PhoneDirectory> findEntryById(Long id) {
+		return Optional.ofNullable(phoneRepository.findOne(id));
+	}
 
-  @Override
-  public Optional<PhoneDirectory> findEntryById(Long id) {
-    return Optional.fromNullable(phoneRepository.findOne(id));
-  }
+	@Override
+	public Map<String, Object> searchTelephones(QueryParameters queryParameters) {
+		Pageable pageable = PageableFactory.makePageable(queryParameters);
+		Page queryResult = getQueryResult(pageable, queryParameters.getSearchCriteria());
+		return datatableResponseAttributes(queryParameters, queryResult);
+	}
 
-  @Override
-  public String searchTelephones(QueryParameters queryParameters) {
-    Pageable pageable = PageableFactory.makePageable(queryParameters);
-    Page queryResult = getQueryResult(pageable, queryParameters.getSearchCriteria());
-    return gson.toJson(datatableResponseAttributes(queryParameters, queryResult));
-  }
+	private Page getQueryResult(Pageable pageable, String searchCriteria) {
+		if (StringUtils.hasText(searchCriteria)) {
+			return phoneRepository.findAll(whereFirstNameOrPhoneNumberLikeCriteriaEntry(searchCriteria), pageable);
+		}
+		return phoneRepository.findAll(pageable);
+	}
 
-  private Page getQueryResult(Pageable pageable, String searchCriteria) {
-    if (StringUtils.hasText(searchCriteria)) {
-      return phoneRepository.findAll(whereFirstNameOrPhoneNumberLikeCriteriaEntry(searchCriteria), pageable);
-    }
-    return phoneRepository.findAll(pageable);
-  }
+	private BooleanExpression whereFirstNameOrPhoneNumberLikeCriteriaEntry(String searchCriteria) {
+		QPhoneDirectory directory = QPhoneDirectory.phoneDirectory;
+		return directory.firstName.toLowerCase().like(anywhere(searchCriteria))
+			.or(directory.phoneNumber.toLowerCase().like(anywhere(searchCriteria)));
+	}
 
-  private BooleanExpression whereFirstNameOrPhoneNumberLikeCriteriaEntry(String searchCriteria) {
-    QPhoneDirectory directory = QPhoneDirectory.phoneDirectory;
-    return directory.firstName.toLowerCase().like(anywhere(searchCriteria))
-      .or(directory.phoneNumber.toLowerCase().like(anywhere(searchCriteria)));
-  }
+	private static String anywhere(String value) {
+		return "%" + value.toLowerCase() + "%";
+	}
 
-  private static String anywhere(String value) {
-    return "%" + value.toLowerCase() + "%";
-  }
-
-  private Map<String, Object> datatableResponseAttributes(QueryParameters parameters, Page page) {
-    final boolean hasContent = page.hasContent();
-    Map<String, Object> datatableAttributes = Maps.newHashMap();
-    datatableAttributes.put("sEcho", parameters.getEcho());
-    datatableAttributes.put("iTotalRecords", (hasContent) ? page.getTotalElements() : 0L);
-    datatableAttributes.put("iTotalDisplayRecords", (hasContent) ? page.getTotalElements() : 0L);
-    datatableAttributes.put("aaData", page.getContent());
-    return datatableAttributes;
-  }
+	private Map<String, Object> datatableResponseAttributes(QueryParameters parameters, Page page) {
+		final boolean hasContent = page.hasContent();
+		Map<String, Object> datatableAttributes = new HashMap<>();
+		datatableAttributes.put("sEcho", parameters.getEcho());
+		datatableAttributes.put("iTotalRecords", (hasContent) ? page.getTotalElements() : 0L);
+		datatableAttributes.put("iTotalDisplayRecords", (hasContent) ? page.getTotalElements() : 0L);
+		datatableAttributes.put("aaData", page.getContent());
+		return datatableAttributes;
+	}
 
 }

@@ -19,21 +19,18 @@
  */
 package com.xpeppers.phonedirectory.test;
 
-import com.google.common.base.Optional;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.xpeppers.phonedirectory.domain.PhoneDirectory;
 import com.xpeppers.phonedirectory.repositories.PhoneDirectoryRepository;
 import com.xpeppers.phonedirectory.services.PhoneDirectoryService;
 import com.xpeppers.phonedirectory.services.PhoneDirectoryServiceImpl;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
+
+import java.util.Optional;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -41,28 +38,23 @@ import static org.fest.assertions.Assertions.assertThat;
 public class PhoneDirectoryServiceTest {
 
   @Mock
-  private PhoneDirectoryRepository phoneRepository;
+  private PhoneDirectoryRepository repository;
 
   @InjectMocks
-  private PhoneDirectoryService phoneDirectoryService = new PhoneDirectoryServiceImpl();
-
-  @Before
-  public void init() {
-    ReflectionTestUtils.setField(phoneDirectoryService, "gson", gson());
-  }
+  private PhoneDirectoryService service = new PhoneDirectoryServiceImpl();
 
   @Test
   public void verifyIfResultIsPresent() {
-    Mockito.when(phoneRepository.findOne(25L)).thenReturn(entry());
-    Optional<PhoneDirectory> phoneDirectory = phoneDirectoryService.findEntryById(25L);
+    Mockito.when(repository.findOne(25L)).thenReturn(entry());
+    Optional<PhoneDirectory> phoneDirectory = service.findEntryById(25L);
     assertThat(phoneDirectory.isPresent()).isTrue();
     assertThat(phoneDirectory.get()).isEqualTo(entry());
   }
 
   @Test
   public void verifyIfResultIsAbsent() {
-    Mockito.when(phoneRepository.findOne(25L)).thenReturn(null);
-    Optional<PhoneDirectory> phoneDirectory = phoneDirectoryService.findEntryById(25L);
+    Mockito.when(repository.findOne(25L)).thenReturn(null);
+    Optional<PhoneDirectory> phoneDirectory = service.findEntryById(25L);
     assertThat(phoneDirectory.isPresent()).isFalse();
   }
 
@@ -73,14 +65,6 @@ public class PhoneDirectoryServiceTest {
     phoneDirectory.setLastName("Beck");
     phoneDirectory.setPhoneNumber("+39 02 1234567");
     return phoneDirectory;
-  }
-
-  private static Gson gson() {
-    return new GsonBuilder()
-      .serializeNulls()
-      .setPrettyPrinting()
-      .serializeSpecialFloatingPointValues()
-      .create();
   }
 
 }

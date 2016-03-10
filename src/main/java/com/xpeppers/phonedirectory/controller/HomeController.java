@@ -19,7 +19,6 @@
  */
 package com.xpeppers.phonedirectory.controller;
 
-import com.google.common.base.Optional;
 import com.xpeppers.phonedirectory.domain.PhoneDirectory;
 import com.xpeppers.phonedirectory.services.PhoneDirectoryService;
 import com.xpeppers.phonedirectory.utils.HttpRequestDatatableParameters;
@@ -33,63 +32,68 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class HomeController {
-  public static final String JSON_UTF_8 = "application/json;charset=UTF-8";
+	public static final String JSON_UTF_8 = "application/json;charset=UTF-8";
 
-  @Autowired
-  private PhoneDirectoryService phoneDirectoryService;
+	@Autowired
+	private PhoneDirectoryService phoneDirectoryService;
 
-  @Autowired
-  private PhoneDirectoryValidator phoneDirectoryValidator;
+	@Autowired
+	private PhoneDirectoryValidator phoneDirectoryValidator;
 
-  @RequestMapping(value = "/home", method = RequestMethod.GET)
-  public String home() {
-    return "home";
-  }
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String home() {
+		return "home";
+	}
 
-  @RequestMapping(value = "/search", method = RequestMethod.GET, produces = JSON_UTF_8)
-  public @ResponseBody String search() {
-    return phoneDirectoryService.searchTelephones(new HttpRequestDatatableParameters(getHttpServletRequest()));
-  }
+	@RequestMapping(value = "/search", method = RequestMethod.GET, produces = JSON_UTF_8)
+	@ResponseBody
+	public Map<String, Object> search() {
+		return phoneDirectoryService.searchTelephones(new HttpRequestDatatableParameters(getHttpServletRequest()));
+	}
 
-  @RequestMapping(value = "/new-entry", method = RequestMethod.GET)
-  public String newEntryPage(Model model) {
-    model.addAttribute("edit", false);
-    model.addAttribute("entry", new PhoneDirectory());
-    return "new-entry";
-  }
+	@RequestMapping(value = "/new-entry", method = RequestMethod.GET)
+	public String newEntryPage(Model model) {
+		model.addAttribute("edit", false);
+		model.addAttribute("entry", new PhoneDirectory());
+		return "new-entry";
+	}
 
-  @RequestMapping(value = "/details", method = RequestMethod.GET)
-  public String entryDetails(@RequestParam("id") Long id, Model model) {
-    Optional<PhoneDirectory> entry = phoneDirectoryService.findEntryById(id);
-    if (entry.isPresent()) {
-      model.addAttribute("edit", true);
-      model.addAttribute("entry", entry.get());
-      return "new-entry";
-    }
-    return "redirect:/404";
-  }
+	@RequestMapping(value = "/details", method = RequestMethod.GET)
+	public String entryDetails(@RequestParam("id") Long id, Model model) {
+		Optional<PhoneDirectory> entry = phoneDirectoryService.findEntryById(id);
+		if (entry.isPresent()) {
+			model.addAttribute("edit", true);
+			model.addAttribute("entry", entry.get());
+			return "new-entry";
+		}
+		return "redirect:/404";
+	}
 
-  @RequestMapping(value = "/save", method = RequestMethod.POST)
-  public String saveEntry(@ModelAttribute("entry") PhoneDirectory phoneDirectory) {
-    phoneDirectoryService.saveEntry(phoneDirectory);
-    return "redirect:/home";
-  }
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String saveEntry(@ModelAttribute("entry") PhoneDirectory phoneDirectory) {
+		phoneDirectoryService.saveEntry(phoneDirectory);
+		return "redirect:/home";
+	}
 
-  @RequestMapping(value = "/validate-entry", method = RequestMethod.POST, produces = JSON_UTF_8)
-  public @ResponseBody ValidationResponse validateEntry(@ModelAttribute("entry") PhoneDirectory phoneDirectory) {
-    return phoneDirectoryValidator.validate(phoneDirectory);
-  }
+	@RequestMapping(value = "/validate-entry", method = RequestMethod.POST, produces = JSON_UTF_8)
+	public
+	@ResponseBody
+	ValidationResponse validateEntry(@ModelAttribute("entry") PhoneDirectory phoneDirectory) {
+		return phoneDirectoryValidator.validate(phoneDirectory);
+	}
 
-  @RequestMapping(value = "/404", method = RequestMethod.GET)
-  public String pageNotFound() {
-    return "404";
-  }
+	@RequestMapping(value = "/404", method = RequestMethod.GET)
+	public String pageNotFound() {
+		return "404";
+	}
 
-  private static HttpServletRequest getHttpServletRequest() {
-    return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-  }
+	private static HttpServletRequest getHttpServletRequest() {
+		return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+	}
 
 }

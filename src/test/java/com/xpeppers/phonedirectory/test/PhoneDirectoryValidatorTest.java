@@ -29,53 +29,59 @@ import static org.fest.assertions.Assertions.assertThat;
 
 public class PhoneDirectoryValidatorTest {
 
-  private PhoneDirectoryValidator phoneDirectoryValidator;
+  private PhoneDirectoryValidator validator;
 
   @Before
   public void setUp() {
-    phoneDirectoryValidator = new PhoneDirectoryValidator();
+    validator = new PhoneDirectoryValidator();
   }
 
   @Test
   public void shouldNotBeWhitespaces() {
     PhoneDirectory phoneDirectory = new PhoneDirectory();
-    ValidationResponse result = phoneDirectoryValidator.validate(phoneDirectory);
+    ValidationResponse result = validator.validate(phoneDirectory);
     assertThat(result.hasErrors()).isTrue();
   }
 
   @Test
   public void telephoneNumberFormatMustBeCorrect() {
-    ValidationResponse result = phoneDirectoryValidator.validate(entryWithPhoneNumber("+39 02 123456"));
+    final PhoneDirectory entry = entryWithPhoneNumber("+39 02 123456");
+    ValidationResponse result = validator.validate(entry);
     assertThat(result.hasErrors()).isFalse();
   }
 
   @Test
   public void telephoneNumberFormatMustNotBeCorrectWithoutWhitespaces() {
-    ValidationResponse result = phoneDirectoryValidator.validate(entryWithPhoneNumber("+39021234567"));
+    final PhoneDirectory entry = entryWithPhoneNumber("+39021234567");
+    ValidationResponse result = validator.validate(entry);
     assertThat(result.hasErrors()).isTrue();
   }
 
   @Test
   public void telephoneNumberFormatMustNotBeCorrectWithOneWhitespace() {
-    ValidationResponse result = phoneDirectoryValidator.validate(entryWithPhoneNumber("+39 021234567"));
+    final PhoneDirectory entry = entryWithPhoneNumber("+39 021234567");
+    ValidationResponse result = validator.validate(entry);
     assertThat(result.hasErrors()).isTrue();
   }
 
   @Test
   public void telephoneNumberFormatMustNotBeCorrectWithMoreThanOneWhitespace() {
-    ValidationResponse result = phoneDirectoryValidator.validate(entryWithPhoneNumber("+39  02 1234567"));
+    final PhoneDirectory entry = entryWithPhoneNumber("+39  02 1234567");
+    ValidationResponse result = validator.validate(entry);
     assertThat(result.hasErrors()).isTrue();
   }
 
   @Test
   public void telephoneNumberFormatMustNotBeCorrectWithLetters() {
-    ValidationResponse result = phoneDirectoryValidator.validate(entryWithPhoneNumber("+39 A2 1234567"));
+    final PhoneDirectory entry = entryWithPhoneNumber("+39 A2 1234567");
+    ValidationResponse result = validator.validate(entry);
     assertThat(result.hasErrors()).isTrue();
   }
 
   @Test
   public void telephoneNumberFormatMustNotBeCorrectWithLessThanSevenDigitsAtTheEnd() {
-    ValidationResponse result = phoneDirectoryValidator.validate(entryWithPhoneNumber("+39 02 12345"));
+    final PhoneDirectory entry = entryWithPhoneNumber("+39 02 12345");
+    ValidationResponse result = validator.validate(entry);
     assertThat(result.hasErrors()).isTrue();
   }
 

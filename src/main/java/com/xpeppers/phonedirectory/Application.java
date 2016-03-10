@@ -17,30 +17,20 @@
  *
  * =============================================================================
  */
-package com.xpeppers.phonedirectory.config;
+package com.xpeppers.phonedirectory;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 @Configuration
-@ComponentScan(basePackages = "com.xpeppers.phonedirectory")
-@Import({WebAppConfig.class, DatastoreConfig.class})
-public class PhoneDirectoryConfig {
+@ComponentScan
+@EnableAutoConfiguration
+public class Application {
 
-  public static final String GLOBAL_DATE_FORMAT = "dd-MM-yyyy";
-
-  @Bean
-  public Gson gson() {
-    return new GsonBuilder()
-      .serializeNulls()
-      .setPrettyPrinting()
-      .setDateFormat(GLOBAL_DATE_FORMAT)
-      .serializeSpecialFloatingPointValues()
-      .create();
-  }
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
 
 }

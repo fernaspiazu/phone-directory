@@ -19,16 +19,18 @@
  */
 package com.xpeppers.phonedirectory.services;
 
-import com.google.common.base.Optional;
 import com.xpeppers.phonedirectory.domain.PhoneDirectory;
 import com.xpeppers.phonedirectory.services.pagination.QueryParameters;
 
+import java.util.Map;
+import java.util.Optional;
+
 public interface PhoneDirectoryService {
 
-  PhoneDirectory saveEntry(PhoneDirectory entry);
+	PhoneDirectory saveEntry(PhoneDirectory entry);
 
-  Optional<PhoneDirectory> findEntryById(Long id);
+	Optional<PhoneDirectory> findEntryById(Long id);
 
-  String searchTelephones(QueryParameters queryParameters);
+	Map<String, Object> searchTelephones(QueryParameters queryParameters);
 
 }
