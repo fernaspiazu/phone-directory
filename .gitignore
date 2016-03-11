@@ -6,3 +6,5 @@ target/
 *.classpath
 *.springBeans
 pom.xml.old
+/static/components
+.bowerrc
