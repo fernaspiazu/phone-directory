@@ -24,7 +24,6 @@ import com.xpeppers.phonedirectory.services.PhoneDirectoryService;
 import com.xpeppers.phonedirectory.utils.HttpRequestDatatableParameters;
 import com.xpeppers.phonedirectory.utils.ValidationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -34,8 +33,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.Optional;
 
-@Controller
-public class HomeController {
+@Deprecated
+public class OldHomeController {
 	public static final String JSON_UTF_8 = "application/json;charset=utf-8";
 
 	@Autowired
