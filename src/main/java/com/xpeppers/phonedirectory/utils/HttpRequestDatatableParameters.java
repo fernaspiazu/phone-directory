@@ -19,7 +19,7 @@
  */
 package com.xpeppers.phonedirectory.utils;
 
-import com.xpeppers.phonedirectory.services.pagination.QueryParameters;
+import com.xpeppers.phonedirectory.services.QueryParameters;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;

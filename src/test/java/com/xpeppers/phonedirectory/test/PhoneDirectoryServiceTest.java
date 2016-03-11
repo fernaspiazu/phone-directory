@@ -19,7 +19,7 @@
  */
 package com.xpeppers.phonedirectory.test;
 
-import com.xpeppers.phonedirectory.domain.PhoneDirectory;
+import com.xpeppers.phonedirectory.repositories.PhoneDirectory;
 import com.xpeppers.phonedirectory.repositories.PhoneDirectoryRepository;
 import com.xpeppers.phonedirectory.services.PhoneDirectoryService;
 import com.xpeppers.phonedirectory.services.PhoneDirectoryServiceImpl;

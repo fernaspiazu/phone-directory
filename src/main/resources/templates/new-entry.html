@@ -59,24 +59,26 @@
     <p class="text-muted text-center">XPeppers test</p>
   </div>
 </div>
-<script th:src="@{/js/post.js}" src="../../static/js/post.js"></script>
+<script th:src="@{/js/post.js}" src="../static/js/post.js"></script>
 <script th:inline="javascript">
-  var targetForm = "#newEntryForm";
-  var asyncUrl = "/validate-entry";
-  var contextRoot = /*[[${#httpServletRequest.getContextPath()}]]*/ '/';
+  var targetForm = "#newEntryForm",
+		  asyncUrl = "/validate-entry",
+		  contextRoot = /*[[${#httpServletRequest.getContextPath()}]]*/ '/';
 
   $(document).ready(function() {
-    var isEdit = /*[[${edit}]]*/ false;
+    var isEdit = /*[[${edit}]]*/ false,
+		    $entry = $('#newEntryForm').find('fieldset input');
+
     if (isEdit) {
-      $('#newEntryForm fieldset input').attr('disabled', 'disabled');
+      $entry.attr('disabled', 'disabled');
     } else {
-      $('#newEntryForm fieldset input').removeAttr('disabled');
+      $entry.removeAttr('disabled');
     }
 
     $('#editEntry').click(function() {
       $(this).hide();
       $('#updateEntry').show();
-      $('#newEntryForm fieldset input').removeAttr('disabled');
+	    $entry.removeAttr('disabled');
     });
   });
 </script>

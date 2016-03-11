@@ -19,8 +19,7 @@
  */
 package com.xpeppers.phonedirectory.services;
 
-import com.xpeppers.phonedirectory.domain.PhoneDirectory;
-import com.xpeppers.phonedirectory.services.pagination.QueryParameters;
+import com.xpeppers.phonedirectory.repositories.PhoneDirectory;
 
 import java.util.Map;
 import java.util.Optional;

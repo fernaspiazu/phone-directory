@@ -17,9 +17,9 @@
  *
  * =============================================================================
  */
-package com.xpeppers.phonedirectory.validator;
+package com.xpeppers.phonedirectory.controller;
 
-import com.xpeppers.phonedirectory.domain.PhoneDirectory;
+import com.xpeppers.phonedirectory.repositories.PhoneDirectory;
 import com.xpeppers.phonedirectory.utils.ErrorMessage;
 import com.xpeppers.phonedirectory.utils.ValidationResponse;
 import org.springframework.stereotype.Component;

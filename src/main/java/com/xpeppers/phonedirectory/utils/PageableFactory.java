@@ -1,6 +1,6 @@
 package com.xpeppers.phonedirectory.utils;
 
-import com.xpeppers.phonedirectory.services.pagination.QueryParameters;
+import com.xpeppers.phonedirectory.services.QueryParameters;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

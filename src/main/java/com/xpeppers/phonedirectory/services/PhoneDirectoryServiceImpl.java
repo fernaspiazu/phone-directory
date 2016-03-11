@@ -20,10 +20,9 @@
 package com.xpeppers.phonedirectory.services;
 
 import com.mysema.query.types.expr.BooleanExpression;
-import com.xpeppers.phonedirectory.domain.PhoneDirectory;
-import com.xpeppers.phonedirectory.domain.QPhoneDirectory;
+import com.xpeppers.phonedirectory.repositories.PhoneDirectory;
+import com.xpeppers.phonedirectory.repositories.QPhoneDirectory;
 import com.xpeppers.phonedirectory.repositories.PhoneDirectoryRepository;
-import com.xpeppers.phonedirectory.services.pagination.QueryParameters;
 import com.xpeppers.phonedirectory.utils.PageableFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

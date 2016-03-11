@@ -19,9 +19,9 @@
  */
 package com.xpeppers.phonedirectory.test;
 
-import com.xpeppers.phonedirectory.domain.PhoneDirectory;
+import com.xpeppers.phonedirectory.repositories.PhoneDirectory;
 import com.xpeppers.phonedirectory.utils.ValidationResponse;
-import com.xpeppers.phonedirectory.validator.PhoneDirectoryValidator;
+import com.xpeppers.phonedirectory.controller.PhoneDirectoryValidator;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,7 +1,7 @@
 /*
  * =============================================================================
  *
- *   Copyright (c) 2014, fumandito@gmail.com
+ *   Copyright (c) 2011-2013, fumandito@gmail.com
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -17,12 +17,34 @@
  *
  * =============================================================================
  */
-package com.xpeppers.phonedirectory.validator;
+package com.xpeppers.phonedirectory.services;
 
-public interface ValidationStatus {
+public abstract class QueryParameters {
 
-	String SUCCESS = "SUCCESS";
+	public int getPage() {
+		return getDisplayStart() / getDisplayLength();
+	}
 
-	String FAIL = "FAIL";
+	public int getSize() {
+		return getDisplayLength();
+	}
+
+	public String getSortColumn() {
+		return getColumnName(getSortColumnIndex());
+	}
+
+	public abstract String getSearchCriteria();
+
+	public abstract int getDisplayStart();
+
+	public abstract int getDisplayLength();
+
+	public abstract String getColumnName(int columnIndex);
+
+	public abstract int getSortColumnIndex();
+
+	public abstract String getSortDirection();
+
+	public abstract String getEcho();
 
 }

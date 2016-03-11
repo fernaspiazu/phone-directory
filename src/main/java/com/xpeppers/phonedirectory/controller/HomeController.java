@@ -19,11 +19,10 @@
  */
 package com.xpeppers.phonedirectory.controller;
 
-import com.xpeppers.phonedirectory.domain.PhoneDirectory;
+import com.xpeppers.phonedirectory.repositories.PhoneDirectory;
 import com.xpeppers.phonedirectory.services.PhoneDirectoryService;
 import com.xpeppers.phonedirectory.utils.HttpRequestDatatableParameters;
 import com.xpeppers.phonedirectory.utils.ValidationResponse;
-import com.xpeppers.phonedirectory.validator.PhoneDirectoryValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +36,7 @@ import java.util.Optional;
 
 @Controller
 public class HomeController {
-	public static final String JSON_UTF_8 = "application/json;charset=UTF-8";
+	public static final String JSON_UTF_8 = "application/json;charset=utf-8";
 
 	@Autowired
 	private PhoneDirectoryService phoneDirectoryService;
@@ -45,7 +44,7 @@ public class HomeController {
 	@Autowired
 	private PhoneDirectoryValidator phoneDirectoryValidator;
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@RequestMapping("/")
 	public String home() {
 		return "home";
 	}
@@ -81,9 +80,8 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/validate-entry", method = RequestMethod.POST, produces = JSON_UTF_8)
-	public
 	@ResponseBody
-	ValidationResponse validateEntry(@ModelAttribute("entry") PhoneDirectory phoneDirectory) {
+	public ValidationResponse validateEntry(@ModelAttribute("entry") PhoneDirectory phoneDirectory) {
 		return phoneDirectoryValidator.validate(phoneDirectory);
 	}
 

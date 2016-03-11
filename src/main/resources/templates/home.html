@@ -58,7 +58,9 @@
 <script type="text/javascript" th:inline="javascript">
   /*<![CDATA[*/
   $(document).ready(function () {
-    $(".default-datatable").dataTable({
+	  var $datatable = $(".default-datatable");
+
+    $datatable.dataTable({
       "bProcessing" : true,
       "bServerSide" : true,
       "sAjaxSource" : /*[[${#httpServletRequest.getContextPath()+'/search'}]]*/ "/search",
@@ -82,8 +84,8 @@
       "bInfo": true
     });
 
-    $(".default-datatable").parent().find("input[type='text']").addClass("form-control input-sm").css({"width": 360});
-    $(".default-datatable").parent().find("select").addClass("form-control input-sm");
+    $datatable.parent().find("input[type='text']").addClass("form-control input-sm").css({"width": 360});
+    $datatable.parent().find("select").addClass("form-control input-sm");
   });
 
   function details(icon) {

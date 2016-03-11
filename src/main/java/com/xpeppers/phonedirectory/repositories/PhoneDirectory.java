@@ -17,7 +17,7 @@
  *
  * =============================================================================
  */
-package com.xpeppers.phonedirectory.domain;
+package com.xpeppers.phonedirectory.repositories;
 
 import javax.persistence.*;
 import java.io.Serializable;
