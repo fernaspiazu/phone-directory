@@ -23,48 +23,52 @@ import com.xpeppers.phonedirectory.repositories.PhoneDirectory;
 import com.xpeppers.phonedirectory.repositories.PhoneDirectoryRepository;
 import com.xpeppers.phonedirectory.services.PhoneDirectoryService;
 import com.xpeppers.phonedirectory.services.PhoneDirectoryServiceImpl;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Optional;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PhoneDirectoryServiceTest {
 
-  @Mock
-  private PhoneDirectoryRepository repository;
+	@Mock
+	private PhoneDirectoryRepository repository;
 
-  @InjectMocks
-  private PhoneDirectoryService service = new PhoneDirectoryServiceImpl();
+	private PhoneDirectoryService service;
 
-  @Test
-  public void verifyIfResultIsPresent() {
-    Mockito.when(repository.findOne(25L)).thenReturn(entry());
-    Optional<PhoneDirectory> phoneDirectory = service.findEntryById(25L);
-    assertThat(phoneDirectory.isPresent()).isTrue();
-    assertThat(phoneDirectory.get()).isEqualTo(entry());
-  }
+	@Before
+	public void setUp() {
+		service = new PhoneDirectoryServiceImpl(repository);
+	}
 
-  @Test
-  public void verifyIfResultIsAbsent() {
-    Mockito.when(repository.findOne(25L)).thenReturn(null);
-    Optional<PhoneDirectory> phoneDirectory = service.findEntryById(25L);
-    assertThat(phoneDirectory.isPresent()).isFalse();
-  }
+	@Test
+	public void verifyIfResultIsPresent() {
+		when(repository.findOne(25L)).thenReturn(entry());
+		Optional<PhoneDirectory> phoneDirectory = service.findEntryById(25L);
+		assertThat(phoneDirectory.isPresent()).isTrue();
+		assertThat(phoneDirectory.get()).isEqualTo(entry());
+	}
 
-  private static PhoneDirectory entry() {
-    PhoneDirectory phoneDirectory = new PhoneDirectory();
-    phoneDirectory.setId(1000L);
-    phoneDirectory.setFirstName("Kent");
-    phoneDirectory.setLastName("Beck");
-    phoneDirectory.setPhoneNumber("+39 02 1234567");
-    return phoneDirectory;
-  }
+	@Test
+	public void verifyIfResultIsAbsent() {
+		when(repository.findOne(25L)).thenReturn(null);
+		Optional<PhoneDirectory> phoneDirectory = service.findEntryById(25L);
+		assertThat(phoneDirectory.isPresent()).isFalse();
+	}
+
+	private static PhoneDirectory entry() {
+		PhoneDirectory phoneDirectory = new PhoneDirectory();
+		phoneDirectory.setId(1000L);
+		phoneDirectory.setFirstName("Kent");
+		phoneDirectory.setLastName("Beck");
+		phoneDirectory.setPhoneNumber("+39 02 1234567");
+		return phoneDirectory;
+	}
 
 }

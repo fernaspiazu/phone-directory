@@ -21,10 +21,9 @@ package com.xpeppers.phonedirectory.services;
 
 import com.mysema.query.types.expr.BooleanExpression;
 import com.xpeppers.phonedirectory.repositories.PhoneDirectory;
-import com.xpeppers.phonedirectory.repositories.QPhoneDirectory;
 import com.xpeppers.phonedirectory.repositories.PhoneDirectoryRepository;
+import com.xpeppers.phonedirectory.repositories.QPhoneDirectory;
 import com.xpeppers.phonedirectory.utils.PageableFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -39,18 +38,21 @@ import java.util.Optional;
 @Transactional
 public class PhoneDirectoryServiceImpl implements PhoneDirectoryService {
 
-	@Autowired
-	private PhoneDirectoryRepository phoneRepository;
+	private final PhoneDirectoryRepository repository;
+
+	public PhoneDirectoryServiceImpl(PhoneDirectoryRepository repository) {
+		this.repository = repository;
+	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public PhoneDirectory saveEntry(PhoneDirectory entry) {
-		return phoneRepository.save(entry);
+		return repository.save(entry);
 	}
 
 	@Override
 	public Optional<PhoneDirectory> findEntryById(Long id) {
-		return Optional.ofNullable(phoneRepository.findOne(id));
+		return Optional.ofNullable(repository.findOne(id));
 	}
 
 	@Override
@@ -62,9 +64,10 @@ public class PhoneDirectoryServiceImpl implements PhoneDirectoryService {
 
 	private Page getQueryResult(Pageable pageable, String searchCriteria) {
 		if (StringUtils.hasText(searchCriteria)) {
-			return phoneRepository.findAll(whereFirstNameOrPhoneNumberLikeCriteriaEntry(searchCriteria), pageable);
+			final BooleanExpression predicate = whereFirstNameOrPhoneNumberLikeCriteriaEntry(searchCriteria);
+			return repository.findAll(predicate, pageable);
 		}
-		return phoneRepository.findAll(pageable);
+		return repository.findAll(pageable);
 	}
 
 	private BooleanExpression whereFirstNameOrPhoneNumberLikeCriteriaEntry(String searchCriteria) {
