@@ -19,14 +19,41 @@
  */
 package com.xpeppers.phonedirectory;
 
+import com.xpeppers.phonedirectory.controller.IndexController;
+import com.xpeppers.phonedirectory.controller.PhoneDirectoryController;
+import com.xpeppers.phonedirectory.repositories.PhoneDirectoryRepository;
+import com.xpeppers.phonedirectory.services.PhoneDirectoryService;
+import com.xpeppers.phonedirectory.services.PhoneDirectoryServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootApplication
+@Configuration
+@EnableAutoConfiguration
 public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+	}
+
+	@Autowired
+	private PhoneDirectoryRepository repository;
+
+	@Bean
+	public PhoneDirectoryService phoneDirectoryService() {
+		return new PhoneDirectoryServiceImpl(repository);
+	}
+
+	@Bean
+	public PhoneDirectoryController phoneDirectoryController() {
+		return new PhoneDirectoryController(phoneDirectoryService());
+	}
+
+	@Bean
+	public IndexController indexController() {
+		return new IndexController();
 	}
 
 }

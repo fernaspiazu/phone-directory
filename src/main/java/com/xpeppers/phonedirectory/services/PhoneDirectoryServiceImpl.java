@@ -35,7 +35,6 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class PhoneDirectoryServiceImpl implements PhoneDirectoryService {
 
 	private final PhoneDirectoryRepository repository;
