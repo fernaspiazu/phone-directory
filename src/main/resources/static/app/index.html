@@ -18,28 +18,52 @@
 # =============================================================================
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="phoneDirectory">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Phone Directory</title>
 
-	<link rel="stylesheet" href="lib/css/bootstrap.min.css">
-	<link rel="stylesheet" href="lib/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="lib/css/angular-csp.css">
+	<link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="scripts/angular/angular-csp.css">
 </head>
 <body>
-<h1>Hello World</h1>
+
+<div class="container">
+	<div ng-controller="MainCtrl as main" ng-cloak>
+		<h1>Phone Directory.</h1>
+		<h2><small>Test exercise for Xpeppers</small></h2>
+		<h6>{{main.now | date:'dd-MM-yyyy'}}</h6>
+	</div>
+	<div>
+		<table class="table table-hover">
+			<thead>
+			<tr>
+				<th>First name</th>
+				<th>Last name</th>
+				<th>Telephone number</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Fernando</td>
+					<td>Aspiazu</td>
+					<td>+39 393 2700929</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
 
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="lib/js/jquery.min.js"></script>
-<script src="lib/js/bootstrap.min.js"></script>
-<script src="lib/js/angular.min.js"></script>
-<script>window.jQuery || document.write('<script src="lib/js/jquery.min.js"><\/script>')</script>
-<script src="lib/js/bootstrap.min.js"></script>
+<script src="vendors/jquery/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="vendors/jquery/jquery.min.js"><\/script>')</script>
+<script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+<script src="scripts/angular/angular.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

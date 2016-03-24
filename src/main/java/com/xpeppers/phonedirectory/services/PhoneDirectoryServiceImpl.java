@@ -50,6 +50,11 @@ public class PhoneDirectoryServiceImpl implements PhoneDirectoryService {
 	}
 
 	@Override
+	public Page<PhoneDirectory> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
+	}
+
+	@Override
 	public Optional<PhoneDirectory> findEntryById(Long id) {
 		return Optional.ofNullable(repository.findOne(id));
 	}

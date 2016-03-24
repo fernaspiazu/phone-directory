@@ -20,6 +20,8 @@
 package com.xpeppers.phonedirectory.services;
 
 import com.xpeppers.phonedirectory.repositories.PhoneDirectory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Map;
 import java.util.Optional;
@@ -27,6 +29,8 @@ import java.util.Optional;
 public interface PhoneDirectoryService {
 
 	PhoneDirectory saveEntry(PhoneDirectory entry);
+
+	Page<PhoneDirectory> findAll(Pageable pageable);
 
 	Optional<PhoneDirectory> findEntryById(Long id);
 
