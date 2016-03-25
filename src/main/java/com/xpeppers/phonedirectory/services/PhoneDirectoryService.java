@@ -34,6 +34,8 @@ public interface PhoneDirectoryService {
 
 	Optional<PhoneDirectory> findEntryById(Long id);
 
+	void delete(Long id);
+
 	Map<String, Object> searchTelephones(QueryParameters queryParameters);
 
 }

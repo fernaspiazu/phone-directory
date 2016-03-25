@@ -9,12 +9,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/api")
@@ -50,14 +51,15 @@ public class PhoneDirectoryController {
 		return direction.isPresent() ? direction.get() : Sort.DEFAULT_DIRECTION;
 	}
 
-	@RequestMapping("/test")
+	@RequestMapping(value = "/delete", method = DELETE)
 	@ResponseBody
-	public ResponseEntity<PhoneDirectory> test(@RequestParam("id") Long id) {
-		final Optional<PhoneDirectory> entry = service.findEntryById(id);
-		if (entry.isPresent()) {
-			return new ResponseEntity<>(entry.get(), HttpStatus.OK);
+	public ResponseEntity<Map<String, String>> delete(@RequestParam("id") Long id) {
+		try {
+			service.delete(id);
+			return new ResponseEntity<>(Collections.singletonMap("deleted", "OK"), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
 }

@@ -60,6 +60,12 @@ public class PhoneDirectoryServiceImpl implements PhoneDirectoryService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void delete(Long id) {
+		repository.delete(id);
+	}
+
+	@Override
 	public Map<String, Object> searchTelephones(QueryParameters queryParameters) {
 		Pageable pageable = PageableFactory.makePageable(queryParameters);
 		Page queryResult = getQueryResult(pageable, queryParameters.getSearchCriteria());

@@ -9,6 +9,11 @@
 						"method": "GET",
 						"headers": {"Content-Type": "application/json"},
 						"params": {"action": "find"}
+					},
+					"delete": {
+						"method": "DELETE",
+						"headers": {"Content-Type": "application/json"},
+						"params": {"action": "delete"}
 					}
 				}
 			);

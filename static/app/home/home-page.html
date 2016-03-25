@@ -1,20 +1,31 @@
-<div>
-	<table class="table table-hover" ng-cloak>
-		<thead>
-		<tr>
-			<th>First name</th>
-			<th>Last name</th>
-			<th>Telephone number</th>
-			<th></th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr ng-repeat="item in homeCtrl.content">
-			<td>{{item.firstName}}</td>
-			<td>{{item.lastName}}</td>
-			<td>{{item.phoneNumber}}</td>
-			<td>{{item.id}}</td>
-		</tr>
-		</tbody>
-	</table>
+<div class="container">
+	<div class="row">
+		<div class="col col-md-8">
+			<table class="table table-bordered table-striped" ng-cloak>
+				<thead>
+				<tr>
+					<th>First name</th>
+					<th>Last name</th>
+					<th>Telephone number</th>
+					<th></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-show="!homeCtrl.content.length">
+					<td colspan="4">
+						<div style="text-align: center; font-weight: bold">No records found</div>
+					</td>
+				</tr>
+				<tr ng-repeat="item in homeCtrl.content" ng-show="homeCtrl.content.length">
+					<td>{{item.firstName}}</td>
+					<td>{{item.lastName}}</td>
+					<td>{{item.phoneNumber}}</td>
+					<td style="text-align: center;">
+						<div ng-click="homeCtrl.delete(item.id)" class="glyphicon glyphicon-trash click-icon"></div>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
