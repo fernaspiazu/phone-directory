@@ -31,29 +31,13 @@
 <body>
 
 <div class="container">
-	<div ng-controller="MainCtrl as main" ng-cloak>
+	<div>
 		<h1>Phone Directory.</h1>
 		<h2><small>Test exercise for Xpeppers</small></h2>
-		<h6>{{main.now | date:'dd-MM-yyyy'}}</h6>
 	</div>
-	<div>
-		<table class="table table-hover">
-			<thead>
-			<tr>
-				<th>First name</th>
-				<th>Last name</th>
-				<th>Telephone number</th>
-			</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Fernando</td>
-					<td>Aspiazu</td>
-					<td>+39 393 2700929</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+
+	<div ng-view></div>
+
 </div>
 
 
@@ -64,6 +48,10 @@
 <script>window.jQuery || document.write('<script src="vendors/jquery/jquery.min.js"><\/script>')</script>
 <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
 <script src="scripts/angular/angular.min.js"></script>
-<script src="app.js"></script>
+<script src="scripts/angular-route/angular-route.min.js"></script>
+<script src="scripts/angular-resource/angular-resource.min.js"></script>
+<script src="app/app.js"></script>
+<script src="app/phone-directory-api.js"></script>
+<script src="app/home/home-ctrl.js"></script>
 </body>
 </html>
