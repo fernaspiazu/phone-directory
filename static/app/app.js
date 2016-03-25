@@ -9,7 +9,7 @@
 				"controllerAs": "homeCtrl"
 			})
 			.when('/not-found', {
-				"templateUrl": "error/404.html"
+				"templateUrl": "app/error/404.html"
 			})
 			.otherwise({"redirectTo": '/not-found'})
 		}])
