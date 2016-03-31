@@ -30,11 +30,13 @@ public interface PhoneDirectoryService {
 
 	PhoneDirectory saveEntry(PhoneDirectory entry);
 
+	long count();
+
+	boolean delete(Long id);
+
 	Page<PhoneDirectory> findAll(Pageable pageable);
 
 	Optional<PhoneDirectory> findEntryById(Long id);
-
-	void delete(Long id);
 
 	Map<String, Object> searchTelephones(QueryParameters queryParameters);
 

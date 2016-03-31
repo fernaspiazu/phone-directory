@@ -24,6 +24,7 @@ import com.xpeppers.phonedirectory.repositories.PhoneDirectory;
 import com.xpeppers.phonedirectory.repositories.PhoneDirectoryRepository;
 import com.xpeppers.phonedirectory.repositories.QPhoneDirectory;
 import com.xpeppers.phonedirectory.utils.PageableFactory;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,22 @@ public class PhoneDirectoryServiceImpl implements PhoneDirectoryService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public boolean delete(Long id) {
+		try {
+			repository.delete(id);
+			return true;
+		} catch (EmptyResultDataAccessException | IllegalArgumentException e) {
+			return false;
+		}
+	}
+
+	@Override
+	public long count() {
+		return repository.count();
+	}
+
+	@Override
 	public Page<PhoneDirectory> findAll(Pageable pageable) {
 		return repository.findAll(pageable);
 	}
@@ -57,12 +74,6 @@ public class PhoneDirectoryServiceImpl implements PhoneDirectoryService {
 	@Override
 	public Optional<PhoneDirectory> findEntryById(Long id) {
 		return Optional.ofNullable(repository.findOne(id));
-	}
-
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public void delete(Long id) {
-		repository.delete(id);
 	}
 
 	@Override

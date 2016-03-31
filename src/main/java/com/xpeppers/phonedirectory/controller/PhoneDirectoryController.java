@@ -9,13 +9,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static java.util.Collections.singletonMap;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 
 @RestController
 @RequestMapping("/api")
@@ -25,6 +28,19 @@ public class PhoneDirectoryController {
 
 	public PhoneDirectoryController(PhoneDirectoryService service) {
 		this.service = service;
+	}
+
+	@RequestMapping("/is-empty")
+	public ResponseEntity<Map<String, Boolean>> isEmpty() {
+		final boolean empty = service.count() == 0;
+		return new ResponseEntity<>(singletonMap("result", empty), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/delete", method = DELETE)
+	@ResponseBody
+	public ResponseEntity<Map<String, Boolean>> delete(@RequestParam("id") Long id) {
+		boolean deleted = service.delete(id);
+		return new ResponseEntity<>(singletonMap("isDeleted", deleted), HttpStatus.OK);
 	}
 
 	@RequestMapping("/find")
@@ -49,17 +65,6 @@ public class PhoneDirectoryController {
 	private Sort.Direction getDirection(String sortDirection) {
 		Optional<Sort.Direction> direction = Optional.ofNullable(Sort.Direction.fromStringOrNull(sortDirection));
 		return direction.isPresent() ? direction.get() : Sort.DEFAULT_DIRECTION;
-	}
-
-	@RequestMapping(value = "/delete", method = DELETE)
-	@ResponseBody
-	public ResponseEntity<Map<String, String>> delete(@RequestParam("id") Long id) {
-		try {
-			service.delete(id);
-			return new ResponseEntity<>(Collections.singletonMap("deleted", "OK"), HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
 	}
 
 }
