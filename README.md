@@ -1,7 +1,8 @@
 # Telephone Directory #
 
 The application handles a set of entries, that contain a first name, last name, and a telephone number.
-The entries are validated, that it's not possible to enter an empty first or last name; and the phone number should be of the form: **+39 02 1234567**
+The entries are validated, that it's not possible to enter an empty first or last name; and the phone number should be of the form: 
+**+39 02 1234567**
 
 See the Web Application up and running as an [Heroku App](https://phone-directory.herokuapp.com/).
 
