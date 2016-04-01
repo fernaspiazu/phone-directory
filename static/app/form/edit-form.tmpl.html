@@ -18,8 +18,7 @@
         Something went wrong.
       </div>
       <form name="entryForm" ng-submit="formCtrl.save()">
-        <div
-            ng-class="['form-group', {'has-success': entryForm.firstName.$valid}, {'has-error': entryForm.firstName.$invalid && entryForm.firstName.$dirty}]">
+        <div ng-class="['form-group', {'has-success': entryForm.firstName.$valid}, {'has-error': entryForm.firstName.$invalid && entryForm.firstName.$dirty}]">
           <label for="txt-first-name">First name</label>
           <input type="text"
                  id="txt-first-name"
@@ -30,8 +29,7 @@
                  ng-minlength="4"
                  required>
         </div>
-        <div
-            ng-class="['form-group', {'has-success': entryForm.lastName.$valid}, {'has-error': entryForm.lastName.$invalid && entryForm.lastName.$dirty}]">
+        <div ng-class="['form-group', {'has-success': entryForm.lastName.$valid}, {'has-error': entryForm.lastName.$invalid && entryForm.lastName.$dirty}]">
           <label for="txt-last-name">Last name</label>
           <input type="text"
                  id="txt-last-name"
@@ -42,8 +40,7 @@
                  ng-minlength="4"
                  required>
         </div>
-        <div
-            ng-class="['form-group', {'has-success': entryForm.phoneNumber.$valid}, {'has-error': entryForm.phoneNumber.$invalid && entryForm.phoneNumber.$dirty}]">
+        <div ng-class="['form-group', {'has-success': entryForm.phoneNumber.$valid}, {'has-error': entryForm.phoneNumber.$invalid && entryForm.phoneNumber.$dirty}]">
           <label for="txt-phone-number">Last name</label>
           <input type="text"
                  id="txt-phone-number"
@@ -55,7 +52,6 @@
                  ng-pattern="/^[+](\d+)(\s)(\d+)(\s)(\d{6,})+$/">
         </div>
         <div class="pull-right">
-          <!--<a href="#/" class="btn btn-danger">Cancel</a>-->
           <button type="reset" ng-click="formCtrl.reset()" class="btn btn-default">Cancel</button>
           <input type="submit" class="btn btn-success" ng-disabled="entryForm.$invalid" value="Submit">
         </div>
