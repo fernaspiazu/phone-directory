@@ -3,15 +3,16 @@
 (function () {
   angular.module('phoneDirectory')
     .controller('HomeCtrl', [
-      'PhoneDirectoryAPI', 'firstPageInTable', 'isEmptyContent',
-      function (PhoneDirectoryAPI, firstPageInTable, isEmptyContent) {
+      '$scope', 'PhoneDirectoryAPI', 'firstPageInTable', 'isEmptyContent',
+      function ($scope, PhoneDirectoryAPI, firstPageInTable, isEmptyContent) {
         var self = this;
         self.empty = isEmptyContent.result;
         self.page = firstPageInTable;
+        self.current = 0;
 
         var fetchRecords = function (page) {
-          page = page || 0;
-          PhoneDirectoryAPI.find({"page": page, "size": 10}).$promise
+          self.current = page;
+          PhoneDirectoryAPI.find({"page": self.current, "size": 10}).$promise
             .then(function (data) {
               self.page = data;
               self.empty = data.content.length === 0;
@@ -31,6 +32,15 @@
         self.find = function(page) {
           fetchRecords(page);
         };
+
+        $scope.$watch('formCtrl.criteria', function(newVal, oldVal) {
+          var data = {"page": self.current, "size": 10, "q": newVal || ""};
+          PhoneDirectoryAPI.search(data).$promise
+            .then(function (data) {
+              self.page = data;
+              self.empty = data.content.length === 0;
+            });
+        });
 
         self.range = function(min, max, step) {
           min = min || 0;

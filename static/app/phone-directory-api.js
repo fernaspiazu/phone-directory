@@ -15,6 +15,11 @@
             "headers": {"Content-Type": "application/json"},
             "params": {"action": "find"}
           },
+          "search": {
+            "method": "GET",
+            "headers": {"Content-Type": "application/json"},
+            "params": {"action": "search"}
+          },
           "save": {
             "method": "POST",
             "headers": {"Content-Type": "application/json"},

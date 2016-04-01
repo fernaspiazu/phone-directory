@@ -19,6 +19,7 @@
  */
 package com.xpeppers.phonedirectory.services;
 
+import com.mysema.query.types.expr.BooleanExpression;
 import com.xpeppers.phonedirectory.data.PhoneDirectory;
 import com.xpeppers.phonedirectory.data.PhoneDirectoryRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -28,6 +29,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+
+import static com.xpeppers.phonedirectory.data.QPhoneDirectory.phoneDirectory;
 
 @Service
 public class PhoneDirectoryServiceImpl implements PhoneDirectoryService {
@@ -68,6 +71,18 @@ public class PhoneDirectoryServiceImpl implements PhoneDirectoryService {
 	@Override
 	public Optional<PhoneDirectory> findEntryById(Long id) {
 		return Optional.ofNullable(repository.findOne(id));
+	}
+
+	@Override
+	public Page search(String query, Pageable pageable) {
+		BooleanExpression firstName = phoneDirectory.firstName.lower().like(anywhere(query));
+		BooleanExpression lastName = phoneDirectory.lastName.lower().like(anywhere(query));
+		BooleanExpression phoneNumber = phoneDirectory.phoneNumber.trim().like(anywhere(query).trim());
+		return repository.findAll(firstName.or(lastName.or(phoneNumber)), pageable);
+	}
+
+	private String anywhere(String query) {
+		return "%" + query + "%";
 	}
 
 }

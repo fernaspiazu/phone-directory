@@ -53,4 +53,15 @@ public class PhoneDirectoryController {
 		return new ResponseEntity<>(all, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/search", method = GET)
+	public ResponseEntity<Page> search(
+			@RequestParam("page") int page,
+			@RequestParam("size") int size,
+			@RequestParam(name = "q", required = false) String query) {
+
+		PageRequest pageRequest = new PageRequest(page, size);
+		Page result = service.search(query, pageRequest);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
 }

@@ -37,4 +37,5 @@ public interface PhoneDirectoryService {
 
 	Optional<PhoneDirectory> findEntryById(Long id);
 
+	Page search(String query, Pageable pageable);
 }
