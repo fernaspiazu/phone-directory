@@ -23,7 +23,6 @@ import com.mysema.query.types.expr.BooleanExpression;
 import com.xpeppers.phonedirectory.repositories.PhoneDirectory;
 import com.xpeppers.phonedirectory.repositories.PhoneDirectoryRepository;
 import com.xpeppers.phonedirectory.repositories.QPhoneDirectory;
-import com.xpeppers.phonedirectory.utils.PageableFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
