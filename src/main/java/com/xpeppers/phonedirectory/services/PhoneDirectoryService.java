@@ -19,11 +19,10 @@
  */
 package com.xpeppers.phonedirectory.services;
 
-import com.xpeppers.phonedirectory.repositories.PhoneDirectory;
+import com.xpeppers.phonedirectory.data.PhoneDirectory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Map;
 import java.util.Optional;
 
 public interface PhoneDirectoryService {
@@ -37,7 +36,5 @@ public interface PhoneDirectoryService {
 	Page<PhoneDirectory> findAll(Pageable pageable);
 
 	Optional<PhoneDirectory> findEntryById(Long id);
-
-	Map<String, Object> searchTelephones(QueryParameters queryParameters);
 
 }

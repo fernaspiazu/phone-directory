@@ -19,8 +19,8 @@
  */
 package com.xpeppers.phonedirectory.test;
 
-import com.xpeppers.phonedirectory.repositories.PhoneDirectory;
-import com.xpeppers.phonedirectory.repositories.PhoneDirectoryRepository;
+import com.xpeppers.phonedirectory.data.PhoneDirectory;
+import com.xpeppers.phonedirectory.data.PhoneDirectoryRepository;
 import com.xpeppers.phonedirectory.services.PhoneDirectoryService;
 import com.xpeppers.phonedirectory.services.PhoneDirectoryServiceImpl;
 import org.junit.Before;

@@ -1,62 +1,65 @@
 <div class="container">
-	<div class="row">
-		<div class="col col-md-7">
-			<ol class="breadcrumb">
-				<li><a href="#/">Home</a></li>
-				<li class="active">New entry</li>
-			</ol>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col col-md-7">
-			<div class="alert alert-success" role="alert" ng-show="formCtrl.isSuccessful">
-				<strong>Well Done!!!</strong>
-				Data saved successfully.
-			</div>
-			<div class="alert alert-danger" role="alert" ng-show="formCtrl.isFailed">
-				<strong>Error!!!</strong>
-				Something went wrong.
-			</div>
-			<form name="entryForm" ng-submit="formCtrl.save()">
-				<div ng-class="['form-group', {'has-success': entryForm.firstName.$valid}, {'has-error': entryForm.firstName.$invalid && entryForm.firstName.$dirty}]">
-					<label for="txt-first-name">First name</label>
-					<input type="text"
-					       id="txt-first-name"
-					       name="firstName"
-					       ng-model="formCtrl.model.firstName"
-					       class="form-control"
-					       placeholder="John"
-					       ng-minlength="4"
-					       required>
-				</div>
-				<div ng-class="['form-group', {'has-success': entryForm.lastName.$valid}, {'has-error': entryForm.lastName.$invalid && entryForm.lastName.$dirty}]">
-					<label for="txt-last-name">Last name</label>
-					<input type="text"
-					       id="txt-last-name"
-					       name="lastName"
-					       ng-model="formCtrl.model.lastName"
-					       class="form-control"
-					       placeholder="Smith"
-					       ng-minlength="4"
-					       required>
-				</div>
-				<div ng-class="['form-group', {'has-success': entryForm.phoneNumber.$valid}, {'has-error': entryForm.phoneNumber.$invalid && entryForm.phoneNumber.$dirty}]">
-					<label for="txt-phone-number">Last name</label>
-					<input type="text"
-					       id="txt-phone-number"
-					       name="phoneNumber"
-					       ng-model="formCtrl.model.phoneNumber"
-					       class="form-control"
-					       placeholder="+39 320 1234567"
-					       required
-					       ng-pattern="/^[+](\d+)(\s)(\d+)(\s)(\d{6,})+$/">
-				</div>
-				<div class="pull-right">
-					<!--<a href="#/" class="btn btn-danger">Cancel</a>-->
-					<button type="reset" ng-click="formCtrl.reset()" class="btn btn-default">Cancel</button>
-					<input type="submit" class="btn btn-success" ng-disabled="entryForm.$invalid" value="Submit">
-				</div>
-			</form>
-		</div>
-	</div>
+  <div class="row">
+    <div class="col col-md-7">
+      <ol class="breadcrumb">
+        <li><a href="#/">Home</a></li>
+        <li class="active">New entry</li>
+      </ol>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-md-7">
+      <div class="alert alert-success" role="alert" ng-show="formCtrl.isSuccessful">
+        <strong>Well Done!!!</strong>
+        Data saved successfully.
+      </div>
+      <div class="alert alert-danger" role="alert" ng-show="formCtrl.isFailed">
+        <strong>Error!!!</strong>
+        Something went wrong.
+      </div>
+      <form name="entryForm" ng-submit="formCtrl.save()">
+        <div
+            ng-class="['form-group', {'has-success': entryForm.firstName.$valid}, {'has-error': entryForm.firstName.$invalid && entryForm.firstName.$dirty}]">
+          <label for="txt-first-name">First name</label>
+          <input type="text"
+                 id="txt-first-name"
+                 name="firstName"
+                 ng-model="formCtrl.model.firstName"
+                 class="form-control"
+                 placeholder="John"
+                 ng-minlength="4"
+                 required>
+        </div>
+        <div
+            ng-class="['form-group', {'has-success': entryForm.lastName.$valid}, {'has-error': entryForm.lastName.$invalid && entryForm.lastName.$dirty}]">
+          <label for="txt-last-name">Last name</label>
+          <input type="text"
+                 id="txt-last-name"
+                 name="lastName"
+                 ng-model="formCtrl.model.lastName"
+                 class="form-control"
+                 placeholder="Smith"
+                 ng-minlength="4"
+                 required>
+        </div>
+        <div
+            ng-class="['form-group', {'has-success': entryForm.phoneNumber.$valid}, {'has-error': entryForm.phoneNumber.$invalid && entryForm.phoneNumber.$dirty}]">
+          <label for="txt-phone-number">Last name</label>
+          <input type="text"
+                 id="txt-phone-number"
+                 name="phoneNumber"
+                 ng-model="formCtrl.model.phoneNumber"
+                 class="form-control"
+                 placeholder="+39 320 1234567"
+                 required
+                 ng-pattern="/^[+](\d+)(\s)(\d+)(\s)(\d{6,})+$/">
+        </div>
+        <div class="pull-right">
+          <!--<a href="#/" class="btn btn-danger">Cancel</a>-->
+          <button type="reset" ng-click="formCtrl.reset()" class="btn btn-default">Cancel</button>
+          <input type="submit" class="btn btn-success" ng-disabled="entryForm.$invalid" value="Submit">
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

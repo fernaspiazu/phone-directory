@@ -21,7 +21,7 @@ package com.xpeppers.phonedirectory;
 
 import com.xpeppers.phonedirectory.controller.IndexController;
 import com.xpeppers.phonedirectory.controller.PhoneDirectoryController;
-import com.xpeppers.phonedirectory.repositories.PhoneDirectoryRepository;
+import com.xpeppers.phonedirectory.data.PhoneDirectoryRepository;
 import com.xpeppers.phonedirectory.services.PhoneDirectoryService;
 import com.xpeppers.phonedirectory.services.PhoneDirectoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
