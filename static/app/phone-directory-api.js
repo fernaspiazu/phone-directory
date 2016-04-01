@@ -15,6 +15,11 @@
 						"headers": {"Content-Type": "application/json"},
 						"params": {"action": "find"}
 					},
+					"save": {
+						"method": "POST",
+						"headers": {"Content-Type": "application/json"},
+						"params": {"action": "save"}
+					},
 					"delete": {
 						"method": "DELETE",
 						"headers": {"Content-Type": "application/json"},

@@ -9,16 +9,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 import java.util.Optional;
 
 import static java.util.Collections.singletonMap;
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/api")
@@ -30,20 +30,25 @@ public class PhoneDirectoryController {
 		this.service = service;
 	}
 
-	@RequestMapping("/is-empty")
-	public ResponseEntity<Map<String, Boolean>> isEmpty() {
-		final boolean empty = service.count() == 0;
-		return new ResponseEntity<>(singletonMap("result", empty), HttpStatus.OK);
+	@RequestMapping(value = "/save", method = POST)
+	public ResponseEntity<Map<String, ?>> save(@RequestBody PhoneDirectory entry) {
+		PhoneDirectory justSaved = service.saveEntry(entry);
+		return new ResponseEntity<>(singletonMap("entity", justSaved), HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/delete", method = DELETE)
-	@ResponseBody
 	public ResponseEntity<Map<String, Boolean>> delete(@RequestParam("id") Long id) {
 		boolean deleted = service.delete(id);
 		return new ResponseEntity<>(singletonMap("isDeleted", deleted), HttpStatus.OK);
 	}
 
-	@RequestMapping("/find")
+	@RequestMapping(value = "/is-empty", method = GET)
+	public ResponseEntity<Map<String, Boolean>> isEmpty() {
+		final boolean empty = service.count() == 0;
+		return new ResponseEntity<>(singletonMap("result", empty), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/find", method = GET)
 	public ResponseEntity<Page<PhoneDirectory>> findAll(
 			@RequestParam("page") int page,
 			@RequestParam("size") int size,

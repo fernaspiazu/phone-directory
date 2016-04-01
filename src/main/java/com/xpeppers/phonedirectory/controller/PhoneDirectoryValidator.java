@@ -24,7 +24,6 @@ import com.xpeppers.phonedirectory.utils.ErrorMessage;
 import com.xpeppers.phonedirectory.utils.ValidationResponse;
 import org.springframework.util.StringUtils;
 
-//@Component
 public class PhoneDirectoryValidator {
 	private static final String REGEX = "^[+](\\d+)(\\s)(\\d+)(\\s)(\\d{6,})+$";
 
