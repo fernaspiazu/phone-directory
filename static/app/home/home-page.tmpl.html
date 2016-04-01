@@ -23,7 +23,7 @@
             <div style="text-align: center; font-weight: bold">No records found</div>
           </td>
         </tr>
-        <tr ng-hide="homeCtrl.empty" ng-repeat="item in homeCtrl.content">
+        <tr ng-hide="homeCtrl.empty" ng-repeat="item in homeCtrl.page.content">
           <td>{{item.firstName}}</td>
           <td>{{item.lastName}}</td>
           <td>{{item.phoneNumber}}</td>
@@ -33,6 +33,27 @@
         </tr>
         </tbody>
       </table>
+      <div class="text-center">
+        <nav>
+          <ul class="pagination">
+            <li>
+              <a class="click-icon" aria-label="Previous" ng-click="homeCtrl.find(0)">
+                <span aria-hidden="true">«</span>
+              </a>
+            </li>
+            <li ng-repeat="p in homeCtrl.range(1, homeCtrl.page.totalPages)">
+              <a class="click-icon" ng-click="homeCtrl.find($index)">
+                <span>{{p}}</span>
+              </a>
+            </li>
+            <li>
+              <a class="click-icon" aria-label="Next" ng-click="homeCtrl.find(homeCtrl.page.totalPages - 1)">
+                <span aria-hidden="true">»</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
       <div class="pull-right">
         <a href="#/new" class="btn btn-success">Add entry</a>
       </div>

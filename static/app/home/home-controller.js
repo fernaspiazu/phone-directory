@@ -7,12 +7,13 @@
       function (PhoneDirectoryAPI, firstPageInTable, isEmptyContent) {
         var self = this;
         self.empty = isEmptyContent.result;
-        self.content = firstPageInTable.content;
+        self.page = firstPageInTable;
 
-        var fetchRecords = function () {
-          PhoneDirectoryAPI.find({"page": 0, "size": 10}).$promise
+        var fetchRecords = function (page) {
+          page = page || 0;
+          PhoneDirectoryAPI.find({"page": page, "size": 10}).$promise
             .then(function (data) {
-              self.content = data.content;
+              self.page = data;
               self.empty = data.content.length === 0;
             });
         };
@@ -25,6 +26,20 @@
               console.error('Error when I delete: ', err);
             })
             .then(fetchRecords);
+        };
+
+        self.find = function(page) {
+          fetchRecords(page);
+        };
+
+        self.range = function(min, max, step) {
+          min = min || 0;
+          step = step || 1;
+          var input = [];
+          for (var i = min; i <= max; i += step) {
+            input.push(i);
+          }
+          return input;
         };
       }
     ]);
