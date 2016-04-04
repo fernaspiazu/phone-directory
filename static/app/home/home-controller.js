@@ -29,11 +29,11 @@
             .then(fetchRecords);
         };
 
-        self.find = function(page) {
+        self.find = function (page) {
           fetchRecords(page);
         };
 
-        $scope.$watch('formCtrl.criteria', function(newVal, oldVal) {
+        $scope.$watch('formCtrl.criteria', function (newVal, oldVal) {
           var data = {"page": self.current, "size": 10, "q": newVal || ""};
           PhoneDirectoryAPI.search(data).$promise
             .then(function (data) {
@@ -42,7 +42,7 @@
             });
         });
 
-        self.range = function(min, max, step) {
+        self.range = function (min, max, step) {
           min = min || 0;
           step = step || 1;
           var input = [];
