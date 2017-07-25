@@ -11,7 +11,7 @@
         self.current = 0;
 
         var fetchRecords = function (page) {
-          self.current = page;
+          self.current = page || 0;
           PhoneDirectoryAPI.find({"page": self.current, "size": 10}).$promise
             .then(function (data) {
               self.page = data;

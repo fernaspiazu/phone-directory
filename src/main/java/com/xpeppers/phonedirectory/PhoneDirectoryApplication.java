@@ -19,15 +19,8 @@
  */
 package com.xpeppers.phonedirectory;
 
-import com.mongodb.Mongo;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
 public class PhoneDirectoryApplication {
@@ -35,23 +28,5 @@ public class PhoneDirectoryApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PhoneDirectoryApplication.class, args);
 	}
-
-	@Configuration
-    @EnableMongoRepositories(basePackages = "com.xpeppers.phonedirectory.repository")
-	public class SimpleMongoConfig {
-
-	    private final String mongoDBURI = System.getProperty("mongodb.uri");
-
-	    @Bean
-	    public Mongo mongo() {
-            return new MongoClient(new MongoClientURI(mongoDBURI));
-        }
-
-        @Bean(name = "mongoTemplate")
-        public MongoTemplate template() {
-	        return new MongoTemplate(mongo(), "phone-directory");
-        }
-
-    }
 
 }
