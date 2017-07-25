@@ -17,11 +17,20 @@
  *
  * =============================================================================
  */
-insert into phone_directory(id, first_name, last_name, phone_number)
-	values (-5, 'Barack', 'Obama', '+39 02 1235698');
+package com.xpeppers.phonedirectory.model;
 
-insert into phone_directory(id, first_name, last_name, phone_number)
-	values (-4, 'Silvio', 'Berlusconi', '+39 02 6542222');
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.TextScore;
 
-insert into phone_directory(id, first_name, last_name, phone_number)
-	values (-3, 'Carlo', 'Persico', '+39 320 1246559');
+import java.io.Serializable;
+
+@Document
+public class PhoneDirectory implements Serializable {
+    @Id public String id;
+    @TextIndexed public String firstName;
+    @TextIndexed public String lastName;
+    @TextIndexed public String phoneNumber;
+    @TextScore public Float score;
+}

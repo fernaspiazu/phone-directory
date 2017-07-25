@@ -17,5 +17,10 @@
  *
  * =============================================================================
  */
+package com.xpeppers.phonedirectory.repository;
 
-create sequence phone_sequence increment by 1 minvalue 1 start 1;
+import com.xpeppers.phonedirectory.model.PhoneDirectory;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+public interface PhoneDirectoryRepository extends MongoRepository<PhoneDirectory, String> {
+}

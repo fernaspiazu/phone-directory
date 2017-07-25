@@ -17,25 +17,16 @@
  *
  * =============================================================================
  */
-package com.xpeppers.phonedirectory.services;
+package com.xpeppers.phonedirectory;
 
-import com.xpeppers.phonedirectory.data.PhoneDirectory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Optional;
+@SpringBootApplication
+public class PhoneDirectoryApplication {
 
-public interface PhoneDirectoryService {
+	public static void main(String[] args) {
+		SpringApplication.run(PhoneDirectoryApplication.class, args);
+	}
 
-	PhoneDirectory saveEntry(PhoneDirectory entry);
-
-	long count();
-
-	boolean delete(Long id);
-
-	Page<PhoneDirectory> findAll(Pageable pageable);
-
-	Optional<PhoneDirectory> findEntryById(Long id);
-
-	Page search(String query, Pageable pageable);
 }
