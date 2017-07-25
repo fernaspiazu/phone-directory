@@ -17,10 +17,16 @@
  *
  * =============================================================================
  */
-create table phone_directory (
-  id              integer not null,
-  first_name      varchar(50),
-  last_name       varchar(50),
-  phone_number    varchar(50),
-  constraint pk_phone_dir primary key (id)
-);
+package com.xpeppers.phonedirectory.controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/")
+public class IndexController {
+    @RequestMapping
+    public String index() {
+        return "index.html";
+    }
+}

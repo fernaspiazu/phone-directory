@@ -17,10 +17,26 @@
  *
  * =============================================================================
  */
-package com.xpeppers.phonedirectory.data;
+package com.xpeppers.phonedirectory.service;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+import com.xpeppers.phonedirectory.model.PhoneDirectory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-public interface PhoneDirectoryRepository extends JpaRepository<PhoneDirectory, Long>, QueryDslPredicateExecutor {
+import java.util.Optional;
+
+public interface PhoneDirectoryService {
+
+    PhoneDirectory save(PhoneDirectory doc);
+
+    Optional<PhoneDirectory> delete(String id);
+
+    long count();
+
+    Page<PhoneDirectory> findAll(Pageable pageable);
+
+    Optional<PhoneDirectory> findById(String id);
+
+    Page<PhoneDirectory> search(String term, Pageable pageable);
+
 }
