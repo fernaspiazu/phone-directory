@@ -37,13 +37,13 @@ import java.util.Optional;
 @Service
 public class PhoneDirectoryServiceImpl implements PhoneDirectoryService {
 
-    private final MongoTemplate template;
+    private final MongoTemplate mongoTemplate;
 
     private final PhoneDirectoryRepository repository;
 
     @Autowired
-    public PhoneDirectoryServiceImpl(MongoTemplate template, PhoneDirectoryRepository repository) {
-        this.template = template;
+    public PhoneDirectoryServiceImpl(MongoTemplate mongoTemplate, PhoneDirectoryRepository repository) {
+        this.mongoTemplate = mongoTemplate;
         this.repository = repository;
     }
 
@@ -55,7 +55,7 @@ public class PhoneDirectoryServiceImpl implements PhoneDirectoryService {
     @Override
     public Optional<PhoneDirectory> delete(String id) {
         Query query = Query.query(Criteria.where("_id").is(id));
-        return Optional.ofNullable(template.findAndRemove(query, PhoneDirectory.class));
+        return Optional.ofNullable(mongoTemplate.findAndRemove(query, PhoneDirectory.class));
     }
 
     @Override
@@ -83,8 +83,8 @@ public class PhoneDirectoryServiceImpl implements PhoneDirectoryService {
                     getRegex("lastName", term),
                     getRegex("phoneNumber", term)
             ));
-            List<PhoneDirectory> content = template.find(query, PhoneDirectory.class);
-            long total = template.count(query, PhoneDirectory.class);
+            List<PhoneDirectory> content = mongoTemplate.find(query, PhoneDirectory.class);
+            long total = mongoTemplate.count(query, PhoneDirectory.class);
             return new PageImpl<>(content, pageable, total);
         }
     }
