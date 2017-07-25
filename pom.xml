@@ -5,7 +5,7 @@
 
   <groupId>com.xpeppers</groupId>
   <artifactId>phone-directory</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>3.0.0</version>
   <packaging>jar</packaging>
 
   <name>phone-directory</name>
