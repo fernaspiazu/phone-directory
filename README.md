@@ -23,6 +23,7 @@ OR
 * `$ java -jar target/phone-directory-3.0.0.jar`
 
 This is a Spring Boot Application.
+
 As WebServer Tomcat is used.
 
 License
